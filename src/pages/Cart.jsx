@@ -16,7 +16,7 @@ function Cart({ cart, changeQuantity }) {
               <div className="cart__body">
                 {cart.map((book) => {
                   return (
-                    <div className="cart__item">
+                    <div className="cart__item" key={book.id}>
                       <div className="cart__book">
                         <img src={book.url} className="cart__book--img" />
                         <div className="cart__book--info">
@@ -34,7 +34,9 @@ function Cart({ cart, changeQuantity }) {
                           type="number"
                           min={0}
                           max={99}
-                          onChange={(event) => changeQuantity(event.target.value)}
+                          onChange={(event) =>
+                            changeQuantity(event.target.value)
+                          }
                           className="cart__input"
                         />
                       </div>
