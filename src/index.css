@@ -239,6 +239,11 @@ header {
   align-items: center;
 }
 
+.header__description h1,
+h2 {
+  margin-bottom: 10px;
+}
+
 .header__img--wrapper {
   padding: 20px;
 
@@ -644,6 +649,7 @@ select {
   padding: 8px 16px;
   color: white;
   display: flex;
+  align-items: center;
 }
 
 .cart__item {
