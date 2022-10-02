@@ -6,7 +6,7 @@ import Nav from "./components/Nav";
 import Books from "./pages/Books";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -16,17 +16,33 @@ function App() {
   }
 
   function changeQuantity(book, quantity) {
-    console.log(book.quantity);
+    setCart(
+      cart.map((item) =>
+        +item.id === +book.id ? { ...item, quantity: +quantity } : item
+      )
+    );
+
+    if (+quantity === 0) {
+      deleteItem(book)
+    }
   }
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+  function deleteItem(book) {
+    setCart(cart.filter((item) => +item.id !== +book.id));
+  }
+
+  function numberCartItems() {
+    let counter = 0;
+    cart.forEach((item) => {
+      counter += item.quantity;
+    });
+    return counter;
+  }
 
   return (
-    <div>
+    <div className="App">
       <Router>
-        <Nav />
+        <Nav numberCartItems={numberCartItems()} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/books" element={<Books books={books} />} />
@@ -39,7 +55,12 @@ function App() {
           <Route
             path="/cart"
             element={
-              <Cart books={books} cart={cart} changeQuantity={changeQuantity} />
+              <Cart
+                books={books}
+                cart={cart}
+                deleteItem={deleteItem}
+                changeQuantity={changeQuantity}
+              />
             }
           />
         </Routes>

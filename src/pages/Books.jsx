@@ -5,8 +5,6 @@ function Books({ books: initialBooks }) {
   const [books, setBooks] = useState(initialBooks);
 
   function filterBooks(filter) {
-    console.log(filter);
-
     if (filter === "LOW_TO_HIGH") {
       setBooks(
         books
